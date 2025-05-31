@@ -2,12 +2,15 @@ package project.ec2session.domain.user.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import project.ec2session.domain.user.entity.User;
-
+import io.swagger.v3.oas.annotations.media.Schema;
 public class UserReq {
-
+    @Schema(name = "SignUpDto", description = "회원가입 요청 DTO")
     public record SignUpDto(
+            @Schema(description = "아이디", example = "test")
             @NotBlank(message = "아이디는 필수 입력 값입니다.")
             String username,
+
+            @Schema(description = "비밀번호", example = "password")
             @NotBlank(message = "비밀번호는 필수 입력 값입니다.")
             String password,
             @NotBlank(message = "닉네임은 필수 입력 값입니다.")
@@ -28,8 +31,9 @@ public class UserReq {
             @NotBlank(message = "비밀번호는 필수 입력 값입니다.")
             String password
     ) { }
-
+    @Schema(name = "UpdateInfo", description = "로그인 요청 DTO")
     public record UpdateInfo(
+            @Schema(description = "새로운 닉네임", example = "new 테스터")
             @NotBlank(message = "닉네임은 필수 입력 값입니다.")
             String nickname
     ) { }

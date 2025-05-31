@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import project.ec2session.domain.user.api.AuthApi;
 import project.ec2session.domain.user.dto.TokenDto;
 import project.ec2session.domain.user.dto.UserReq;
 import project.ec2session.domain.user.service.AuthService;
@@ -17,9 +18,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
-public class AuthController{
+public class AuthController implements AuthApi{
     private final AuthService authService;
 
+    @Override
     @PostMapping("/sign-in")
     public ResponseEntity<?> signIn(
             @RequestBody @Valid UserReq.SignInDto request
@@ -29,6 +31,7 @@ public class AuthController{
         return ResponseEntity.ok().body(response);
     }
 
+    @Override
     @PostMapping("/sign-up")
     public ResponseEntity<?> signUp(@RequestBody @Valid UserReq.SignUpDto request) {
         Long userId = authService.signUp(request);
